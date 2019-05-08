@@ -191,6 +191,27 @@ class LedMatrix(var gpio: String,
         spiTransfer(addr, (OP_DIGIT0 + row).toByte(), status[offset + row])
     }
 
+    /**
+     * TODO
+     *
+     * @param addr [Int] The address of the display to control
+     * @param row
+     * @param byte
+     * @throws IOException If hardware doesn't responds
+     */
+    @Throws(IOException::class)
+    fun setCol(addr: Int, col: Int, byte: Byte) {
+        if (addr < 0 || addr >= numDevices) return
+        if (col < 0 || col > 7) return
+
+        var value: Byte
+        for (row in 0..7) {
+            value = (byte.toInt() shr (7 - row)).toByte()
+            setLed(addr, row, col, (value.toInt() and 0x01) == 0x01)
+        }
+
+    }
+
     /********************************************************************************************************************/
     /**     SPI COMMUNICATION                                                                                           */
     /********************************************************************************************************************/

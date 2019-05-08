@@ -34,6 +34,7 @@ class MainActivity : Activity() {
     private lateinit var ledControl: LedMatrix
     private var status = false
     private var row = 0
+    private var col = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +60,6 @@ class MainActivity : Activity() {
         when (view.id) {
             R.id.btn1 -> {
                 ledControl.apply {
-                    //clearDisplay(0)
                     setRow(0, row, 0xFF.toByte())
                 }
                 if (row == 8) row = 0 else row++
@@ -80,6 +80,12 @@ class MainActivity : Activity() {
                     Thread.sleep(1000)
                     setLed(0, row, col, false)
                 }
+            }
+            R.id.btn5 -> {
+                ledControl.apply {
+                    setCol(0, col, 0x0F.toByte())
+                }
+                if (col == 8) col = 0 else col++
             }
         }
     }
