@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.nilhcem.androidthings:driver-max72xx:0.0.3@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5fd92f1693c7c3c846106aa84cf4c8b1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5fd92f1693c7c3c846106aa84cf4c8b1/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.nilhcem.androidthings/driver-max72xx/0.0.3/c751f8256b136e9b0d49fb05d199dd46418c0d83/driver-max72xx-0.0.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
