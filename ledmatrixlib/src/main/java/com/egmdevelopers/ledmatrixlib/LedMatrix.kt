@@ -1,5 +1,7 @@
 package com.egmdevelopers.ledmatrixlib
 
+import android.graphics.Bitmap
+import android.graphics.Color
 import java.io.IOException
 import com.google.android.things.pio.SpiDevice
 import com.google.android.things.pio.PeripheralManager
@@ -139,12 +141,13 @@ class LedMatrix(private var gpio: RpiConstants,
     }
 
     /**
-     * TODO
+     * Turns on and off an unique led
      *
-     * @param addr
-     * @param row
-     * @param col
-     * @param state
+     * @param addr [Int] Device to show led
+     * @param row [Int] Row where the selected led is
+     * @param col [Int] Col where the selected led is
+     * @param state Turn on and off the led
+     * @throws IOException If hardware doesn't responds
      */
     @Throws(IOException::class)
     fun setLed(addr: Int, row: Int, col: Int, state: Boolean) {
@@ -164,10 +167,10 @@ class LedMatrix(private var gpio: RpiConstants,
     }
 
     /**
-     * TODO
+     * Turn on a row with specified data
      *
-     * @param row
-     * @param byte
+     * @param row [Int] Row to turn on
+     * @param byte [Byte] Data to show in the row
      * @throws IOException If hardware doesn't responds
      */
     @Throws(IOException::class)
@@ -183,10 +186,10 @@ class LedMatrix(private var gpio: RpiConstants,
     }
 
     /**
-     * TODO
+     * Turn on a column with specified data
      *
-     * @param col
-     * @param byte
+     * @param col [Int] Column to turn on
+     * @param byte [Byte] Data to show in the column
      * @throws IOException If hardware doesn't responds
      */
     @Throws(IOException::class)
@@ -198,6 +201,29 @@ class LedMatrix(private var gpio: RpiConstants,
             for (row in 0..7) {
                 value = (byte.toInt() shr (7 - row)).toByte()
                 setLed(display, row, col, (value.toInt() and 0x01) == 0x01)
+            }
+        }
+    }
+
+    /**
+     * Decode a bitmap no-dpi into a 8x8 matrix showable with leds
+     *
+     * Compare [Color.WHITE] to set the leds "on"
+     *
+     * @param bitmap [Bitmap] The resource to show in the matrix
+     * @throws IOException If hardware doesn't responds
+     */
+    @Throws(IOException::class)
+    fun draw(bitmap: Bitmap) {
+        val scaled = Bitmap.createScaledBitmap(bitmap, 8, 8, true)
+        for (row in 0..7) {
+            for (device in 0 until numDevices) {
+                var value = 0
+                for (col in 0..7) {
+                    value = value or if (scaled.getPixel((device * 8) + col, row) == Color.WHITE) 0x80 shr col else 0x00
+                }
+                Log.d(TAG, "DIBUJA -> ${value.toByte()}")
+                setRow(row, value.toByte())
             }
         }
     }

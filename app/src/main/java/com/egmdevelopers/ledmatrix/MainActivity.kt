@@ -1,6 +1,7 @@
 package com.egmdevelopers.ledmatrix
 
 import android.app.Activity
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -86,6 +87,12 @@ class MainActivity : Activity() {
                     setCol(col, 0xFF.toByte())
                 }
                 if (col == 8) col = 0 else col++
+            }
+            R.id.btn6 -> {
+                ledControl.draw(BitmapFactory.decodeResource(resources, R.drawable.happy))
+            }
+            R.id.btn7 -> {
+                ledControl.draw(BitmapFactory.decodeResource(resources, R.drawable.sad))
             }
         }
     }
