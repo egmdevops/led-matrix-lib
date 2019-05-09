@@ -48,6 +48,16 @@ class MainActivity : Activity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy")
+        ledControl.apply {
+            clearDisplay()
+            shutDown(true)
+            close()
+        }
+    }
+
     private fun initPeripherals() {
         ledControl = LedMatrix(RpiConstants.CS_2, 1)
         ledControl.apply {
@@ -93,6 +103,9 @@ class MainActivity : Activity() {
             }
             R.id.btn7 -> {
                 ledControl.draw(BitmapFactory.decodeResource(resources, R.drawable.sad))
+            }
+            R.id.btn8 -> {
+                finish()
             }
         }
     }

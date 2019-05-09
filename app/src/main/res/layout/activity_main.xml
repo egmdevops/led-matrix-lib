@@ -59,4 +59,11 @@
             android:onClick="onClick"
             android:text="Dibuja tristeza"/>
 
+    <Button
+            android:id="@+id/btn8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="Cerrar"/>
+
 </LinearLayout>
