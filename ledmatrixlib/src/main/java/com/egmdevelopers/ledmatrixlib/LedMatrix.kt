@@ -11,7 +11,7 @@ import kotlin.experimental.inv
 import kotlin.experimental.or
 
 /**
- * TODO
+ * Creates a SPI connection with the Led Matrix
  *
  * @property gpio [String] The name of the GPIO pin to be CE in SPI interface
  * @property numDevices [Int] Number of displays to control
@@ -24,15 +24,18 @@ class LedMatrix(private var gpio: RpiConstants,
     private val status      = ByteArray(64)    //Status de los leds 8x8 (64)
 
 
-    init { init() }
+    /********************************************************************************************************************/
+    /**     INIT                                                                                                        */
+    /********************************************************************************************************************/
+    init { setupSPIConnection() }
 
     /********************************************************************************************************************/
     /**     INTERFACES                                                                                                  */
     /********************************************************************************************************************/
 
     /**
-     * Implementación de la interface [AutoCloseable]
-     *  Termina la conexión del puerto serie
+     * Interface [AutoCloseable] implementation
+     *  Breaks the conenction to the led matrix
      */
     override fun close() {
         try {
@@ -53,7 +56,7 @@ class LedMatrix(private var gpio: RpiConstants,
      * @throws IOException If hardware doesn't responds
      */
     @Throws(IOException::class)
-    private fun init() {
+    private fun setupSPIConnection() {
         val pin = if (gpio == RpiConstants.CS_1) RpiConstants.CS_1.gpio else RpiConstants.CS_2.gpio
 
         //Creamos el puerto de comunicación
@@ -228,6 +231,23 @@ class LedMatrix(private var gpio: RpiConstants,
         }
     }
 
+    /**
+     * Show the [Int] [digit] into range 0 - 9
+     *
+     * @param digit Number to show into the led matrix
+     */
+    fun showDigit(digit: Int) {
+        if (digit > 9) {
+            Log.i(TAG, "showDigit only shows numbers between 0 -> 9")
+            return
+        }
+
+        for (row in 0..7) {
+            val draw = digits1[digit]
+            setRow(row, draw[row])
+        }
+    }
+
     /********************************************************************************************************************/
     /**     SPI COMMUNICATION                                                                                           */
     /********************************************************************************************************************/
@@ -241,8 +261,6 @@ class LedMatrix(private var gpio: RpiConstants,
     private fun spiTransfer(addr: Int, opcode: Byte, data: Byte) {
         val offset = addr * 2
         val maxbytes = numDevices * 2
-
-        Log.d(TAG, "maxBytes: $maxbytes")
 
         for (i in 0 until maxbytes) {
             spidata[i] = 0.toByte()

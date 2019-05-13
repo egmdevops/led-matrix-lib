@@ -11,59 +11,24 @@
         tools:context=".MainActivity">
 
     <Button
-            android:id="@+id/btn1"
+            android:id="@+id/btnSetDigit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClick"
-            android:text="Enciende Fila"/>
+            android:text="Random Digit"/>
 
     <Button
-            android:id="@+id/btn2"
+            android:id="@+id/btnClear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClick"
-            android:text="Limpia pantalla"/>
+            android:text="Clear"/>
 
     <Button
-            android:id="@+id/btn3"
+            android:id="@+id/btnClose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClick"
-            android:text="Enciende/Apaga display"/>
-
-    <Button
-            android:id="@+id/btn4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onClick"
-            android:text="Enciende Led"/>
-
-    <Button
-            android:id="@+id/btn5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onClick"
-            android:text="Enciende Columna"/>
-
-    <Button
-            android:id="@+id/btn6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onClick"
-            android:text="Dibuja Sonrisa"/>
-
-    <Button
-            android:id="@+id/btn7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onClick"
-            android:text="Dibuja tristeza"/>
-
-    <Button
-            android:id="@+id/btn8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onClick"
-            android:text="Cerrar"/>
+            android:text="Close App"/>
 
 </LinearLayout>
